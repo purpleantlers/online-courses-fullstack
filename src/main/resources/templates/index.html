@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+
+  <head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Enlace al documento de estilos CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Enlace al documento de scripts JS -->
+    <script src="script.js" defer></script>
+
+    <!-- Título de la página web -->
+    <title>Online Courses</title>
+
+  </head>
+
+  <body>
+
+    <!-- Barra de navegación con nuestro buscador de cursos -->
+    <nav class="search-bar">
+      <input id="userInput" type="text" placeholder="Search..." />
+    </nav>
+
+    <!-- Sección con todos los cursos existentes -->
+    <section class="wrapper">
+
+      <!-- Cada uno de los cursos -->
+      <article class="course" th:each="course : ${course}">
+
+        <!-- Imagen del curso -->
+        <div class="image">
+          <img th:src="@{'assets/' + ${course.imageFileName}}" />
+        </div>
+
+        <!-- Título, descripción, autor y valoración del curso -->
+        <div class="info">
+          <h3 class="title" th:text="${course.name}"></h3>
+          <p class="desc" th:text="${course.description}"></p>
+          <h5 class="owner" th:text="'By ' + ${course.owner}"></h5>
+          <div class="rate">
+            <h4 th:text="${course.rate}"></h4>
+            <div>
+              <img src="assets/star_filled.svg" alt="rating" />
+              <img src="assets/star_filled.svg" alt="rating" />
+              <img src="assets/star_filled.svg" alt="rating" />
+              <img src="assets/star_filled.svg" alt="rating" />
+              <img src="assets/star_half.svg" alt="rating" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Precio del curso -->
+        <h3 class="price" th:text="${course.price} + €"></h3>
+
+      </article>
+
+      <!-- Mensaje de error si no encuentra el curso -->
+      <h1 class="empty">Nothing found!</h1>
+
+    </section>
+
+  </body>
+
+</html>
